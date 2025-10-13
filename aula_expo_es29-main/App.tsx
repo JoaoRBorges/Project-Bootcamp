@@ -13,6 +13,8 @@ import RegisterPage from './src/pages/Auth/Register'
 import { AuthProvider } from './src/contexts/AuthContext'
 import AuthContext from './src/contexts/AuthContext'
 
+import ONGDetailsPage from './src/pages/Ong'; // Add this import
+
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -21,6 +23,7 @@ function MapStack() {
                 <Stack.Navigator>
                         <Stack.Screen name="home" component={MapPage} options={{ headerShown: false }} />
                         <Stack.Screen name="place" component={PlacePage} />
+                        <Stack.Screen name="ongDetails" component={ONGDetailsPage} options={{ title: 'Detalhes da ONG' }} />
                 </Stack.Navigator>
         )
 }
