@@ -18,12 +18,32 @@ const userStore: StoredUser[] = [
   { name: 'admin', email: 'admin@local', password: '123456' }
 ]
 
+// Validação de email simples
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+// Normaliza email (trim + lowercase)
+const normalizeEmail = (email: string): string => {
+  return email.trim().toLowerCase()
+}
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null)
 
   // sign in checks the in-memory userStore
   async function signIn(email: string, password: string) {
-    const found = userStore.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password)
+    // Validações básicas
+    if (!email || !password) return false
+    if (password.length < 4) return false
+    
+    const normalizedEmail = normalizeEmail(email)
+    
+    const found = userStore.find(
+      u => normalizeEmail(u.email) === normalizedEmail && u.password === password
+    )
+    
     if (found) {
       setUser({ name: found.name, email: found.email })
       return true
@@ -31,16 +51,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return false
   }
 
-  // sign up adds to the in-memory store and auto-login
+  // sign up adds to the in-memory store (without auto-login)
   async function signUp(name: string, email: string, password: string) {
+    // Validações
     if (!name || !email || password.length < 4) return false
+    
+    // Validação de nome (mínimo 2 caracteres)
+    if (name.trim().length < 2) return false
+    
+    // Validação de email
+    if (!isValidEmail(email)) return false
 
-    const exists = userStore.some(u => u.email.toLowerCase() === email.toLowerCase())
+    const normalizedEmail = normalizeEmail(email)
+    const exists = userStore.some(u => normalizeEmail(u.email) === normalizedEmail)
+    
     if (exists) return false
 
-    const newUser: StoredUser = { name, email, password }
+    const newUser: StoredUser = { 
+      name: name.trim(), 
+      email: normalizedEmail, 
+      password 
+    }
     userStore.push(newUser)
-    setUser({ name, email })
     return true
   }
 
