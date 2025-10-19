@@ -38,7 +38,7 @@ export default function LoginPage() {
 		const isDeleting = text.length < displayPassword.length
 
 		if (isDeleting) {
-			// Se está apagando, remove do password real
+			// Se está apagando, remove da senha real
 			setPassword(password.slice(0, text.length))
 			setDisplayPassword(text.length > 0 ? "•".repeat(text.length - 1) + password.slice(text.length - 1, text.length) : "")
 		} else {
@@ -56,7 +56,7 @@ export default function LoginPage() {
 			clearTimeout(timeoutRef.current)
 		}
 
-		// Após 800ms, mascara tudo
+		// controle para mascara tudo
 		if (text.length > 0) {
 			timeoutRef.current = setTimeout(() => {
 				setDisplayPassword("•".repeat(password.length + (isDeleting ? 0 : 1)))
@@ -76,7 +76,7 @@ export default function LoginPage() {
 		<>
 			<StatusBar barStyle="light-content" />
 			<ImageBackground
-				source={require("../image/background.png")} // Ajuste o caminho conforme seu projeto
+				source={require("../image/background.png")}
 				style={styles.background}
 				resizeMode="cover"
 			>
@@ -93,7 +93,7 @@ export default function LoginPage() {
 							<Text style={styles.subtitle}>Faça login para continuar</Text>
 						</View>
 
-						{/* Email Input */}
+						{/* campo de email */}
 						<View style={styles.inputContainer}>
 							<Text style={styles.label}>E-mail</Text>
 							<View
@@ -116,7 +116,7 @@ export default function LoginPage() {
 							</View>
 						</View>
 
-						{/* Password Input */}
+						{/* campo de senha */}
 						<View style={styles.inputContainer}>
 							<Text style={styles.label}>Senha</Text>
 							<View
@@ -149,7 +149,7 @@ export default function LoginPage() {
 							</View>
 						</View>
 
-						{/* Login Button */}
+						{/* botao de login */}
 						<TouchableOpacity
 							style={styles.button}
 							onPress={onLogin}
@@ -172,9 +172,9 @@ export default function LoginPage() {
 							<Text style={styles.link}>Criar uma conta</Text>
 						</TouchableOpacity>
 
-						<TouchableOpacity>
+						{/* <TouchableOpacity>
 							<Text style={styles.link}>Entrada sem registro</Text>
-						</TouchableOpacity>
+						</TouchableOpacity> */}
 					</View>
 				</KeyboardAvoidingView>
 			</ImageBackground>

@@ -47,6 +47,7 @@ export default function RegisterPage() {
 		}
 
 		const ok = await signUp(name, email, password)
+		//incrementar mais validacoes 
 		if (!ok) {
 			showMessage("Dados inválidos — preencha todos os campos e use senha >= 4 caracteres")
 			return
@@ -130,13 +131,13 @@ export default function RegisterPage() {
 					style={styles.safe}
 				>
 					<View style={styles.card}>
-						{/* Header */}
+						
 						<View style={styles.header}>
 							<Text style={styles.title}>Crie sua conta</Text>
 							<Text style={styles.subtitle}>Informe seus dados abaixo</Text>
 						</View>
 
-						{/* Name Input */}
+						{/* campo do nome */}
 						<View style={styles.inputContainer}>
 							<Text style={styles.label}>Nome completo</Text>
 							<View
@@ -157,7 +158,7 @@ export default function RegisterPage() {
 							</View>
 						</View>
 
-						{/* Email Input */}
+						{/* Campo de Email */}
 						<View style={styles.inputContainer}>
 							<Text style={styles.label}>E-mail</Text>
 							<View
@@ -180,7 +181,7 @@ export default function RegisterPage() {
 							</View>
 						</View>
 
-						{/* Password Input */}
+						{/* campo de senha */}
 						<View style={styles.inputContainer}>
 							<Text style={styles.label}>Senha</Text>
 							<View
@@ -203,7 +204,7 @@ export default function RegisterPage() {
 							</View>
 						</View>
 
-						{/* Confirm Password Input */}
+						{/* campo de confirmar senha */}
 						<View style={styles.inputContainer}>
 							<Text style={styles.label}>Confirmar senha</Text>
 							<View
@@ -233,7 +234,7 @@ export default function RegisterPage() {
 							)}
 						</View>
 
-						{/* Register Button */}
+						{/* botao de registrar */}
 						<TouchableOpacity
 							style={styles.button}
 							onPress={onRegister}
@@ -249,7 +250,7 @@ export default function RegisterPage() {
 							<View style={styles.dividerLine} />
 						</View>
 
-						{/* Back to Login */}
+						{/* Voltar para tela de login */}
 						<TouchableOpacity onPress={() => navigation.goBack()}>
 							<Text style={styles.link}>Voltar ao login</Text>
 						</TouchableOpacity>
