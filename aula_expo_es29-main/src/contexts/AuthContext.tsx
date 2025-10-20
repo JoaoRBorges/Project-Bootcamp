@@ -9,47 +9,87 @@ type AuthContextType = {
   signIn: (email: string, password: string) => Promise<boolean>
   signUp: (name: string, email: string, password: string) => Promise<boolean>
   signOut: () => void
+  // Retorna uma cópia de todos os usuários cadastrados
+  getUsers: () => User[]
 }
 
 const AuthContext = React.createContext<AuthContextType>({} as AuthContextType)
 
-// In-memory user store (module-scoped). This simulates a tiny repo.
+// usuário em memória. Simula um pequeno repositório.
 const userStore: StoredUser[] = [
   { name: 'admin', email: 'admin@local', password: '123456' }
 ]
 
+// Validação de email simples
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+// Normaliza email
+const normalizeEmail = (email: string): string => {
+  return email.trim().toLowerCase()
+}
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = React.useState<User | null>(null)
+  // Retorna uma cópia de todos os usuários cadastrados
+  const getUsers = React.useCallback((): User[] => {
+    return userStore.map(u => ({ name: u.name, email: u.email }))
+  }, [])
 
-  // sign in checks the in-memory userStore
-  async function signIn(email: string, password: string) {
-    const found = userStore.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password)
+  
+  const signIn = React.useCallback(async (email: string, password: string) => {
+    // Validações básicas
+    if (!email || !password) return false
+    if (password.length < 4) return false
+    
+    const normalizedEmail = normalizeEmail(email)
+    
+    const found = userStore.find(
+      u => normalizeEmail(u.email) === normalizedEmail && u.password === password
+    )
+    
     if (found) {
       setUser({ name: found.name, email: found.email })
       return true
     }
     return false
-  }
+  }, [])
 
-  // sign up adds to the in-memory store and auto-login
-  async function signUp(name: string, email: string, password: string) {
+  
+  const signUp = React.useCallback(async (name: string, email: string, password: string) => {
+    // Validações
     if (!name || !email || password.length < 4) return false
+    
+    // Validação de nome (mínimo 2 caracteres)
+    if (name.trim().length < 2) return false
+    
+    // Validação de email
+    if (!isValidEmail(email)) return false
 
-    const exists = userStore.some(u => u.email.toLowerCase() === email.toLowerCase())
+    const normalizedEmail = normalizeEmail(email)
+    const exists = userStore.some(u => normalizeEmail(u.email) === normalizedEmail)
+    
     if (exists) return false
 
-    const newUser: StoredUser = { name, email, password }
+    const newUser: StoredUser = { 
+      name: name.trim(), 
+      email: normalizedEmail, 
+      password 
+    }
     userStore.push(newUser)
-    setUser({ name, email })
     return true
-  }
+  }, [])
 
-  function signOut() {
+  const signOut = React.useCallback(() => {
     setUser(null)
-  }
+  }, [])
+
+  const contextValue = React.useMemo(() => ({ user, signIn, signUp, signOut, getUsers }), [user, signIn, signUp, signOut, getUsers])
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   )
