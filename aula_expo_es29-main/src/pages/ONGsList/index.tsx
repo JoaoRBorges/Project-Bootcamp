@@ -143,24 +143,25 @@ export default function ONGsListPage() {
   const [refreshing, setRefreshing] = useState(false)
   const NEARBY_RADIUS_KM = 25
 
-  async function geocodeAddress(address: string): Promise<{ latitude: number; longitude: number } | null> {
-    try {
-      const encodedAddress = encodeURIComponent(address)
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=${MAPBOX_API_KEY}&country=BR&limit=1`
+  //descomentar quando for usar a API, cuidado com o limite de requisições gratuito
+  // async function geocodeAddress(address: string): Promise<{ latitude: number; longitude: number } | null> {
+  //   try {
+  //     const encodedAddress = encodeURIComponent(address)
+  //     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=${MAPBOX_API_KEY}&country=BR&limit=1`
       
-      const response = await fetch(url)
-      const data = await response.json()
+  //     const response = await fetch(url)
+  //     const data = await response.json()
       
-      if (data.features && data.features.length > 0) {
-        const [longitude, latitude] = data.features[0].center
-        return { latitude, longitude }
-      }
-      return null
-    } catch (error) {
-      console.error(`Error geocoding address: ${address}`, error)
-      return null
-    }
-  }
+  //     if (data.features && data.features.length > 0) {
+  //       const [longitude, latitude] = data.features[0].center
+  //       return { latitude, longitude }
+  //     }
+  //     return null
+  //   } catch (error) {
+  //     console.error(`Error geocoding address: ${address}`, error)
+  //     return null
+  //   }
+  // }
 
   function getDistanceFromLatLonInKm(lat1: number, lon1: number, lat2: number, lon2: number) {
     const R = 6371 // Radius of the earth in km
@@ -198,23 +199,24 @@ export default function ONGsListPage() {
     setIsLoading(true)
     const ongsWithCoords: NearbyONG[] = []
     
-    for (const ong of BRAZIL_ONGS_BASE) {
-      const coords = await geocodeAddress(ong.address)
-      console.log('coords', coords)
-      if (coords) {
-        const distance = getDistanceFromLatLonInKm(
-          userLat, userLon, 
-          coords.latitude, coords.longitude
-        )
+    //descomentar quando for usar a API, cuidado com o limite de requisições gratuito
+    // for (const ong of BRAZIL_ONGS_BASE) {
+    //   const coords = await geocodeAddress(ong.address)
+    //   console.log('coords', coords)
+    //   if (coords) {
+    //     const distance = getDistanceFromLatLonInKm(
+    //       userLat, userLon, 
+    //       coords.latitude, coords.longitude
+    //     )
         
-        ongsWithCoords.push({
-          ...ong,
-          latitude: coords.latitude,
-          longitude: coords.longitude,
-          distance
-        })
-      }
-    }
+    //     ongsWithCoords.push({
+    //       ...ong,
+    //       latitude: coords.latitude,
+    //       longitude: coords.longitude,
+    //       distance
+    //     })
+    //   }
+    // }
     
     // Filtrar por raio e ordenar por distância
     const filteredONGs = ongsWithCoords
