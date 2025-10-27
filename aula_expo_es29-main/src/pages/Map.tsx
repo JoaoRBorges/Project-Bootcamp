@@ -1,10 +1,13 @@
 import React from "react"
 import * as Location from 'expo-location'
-import { StyleSheet, View, Alert, Linking } from "react-native"
+import { StyleSheet, View, Text, SafeAreaView } from "react-native"
 import { NavigationProp, useFocusEffect, useNavigation } from "@react-navigation/native"
 import MapView, { LongPressEvent, Marker } from 'react-native-maps'
 import { Place } from "../models"
 import * as placeRepo from '../servicos/place.repo'
+import SideMenu from '../components/SideMenu'
+import MenuButton from '../components/MenuButton'
+import { Colors, Typography, Spacing, BorderRadius, Shadows } from '../styles/DesignSystem'
 
 const MAPBOX_API_KEY = 'pk.eyJ1IjoiaW1wYWN0YXZpbmkiLCJhIjoiY21naXRoM2E4MGN1YjJrb2toeXBzd2huYSJ9.HjAEpTV9B7kmqm2S0urBAw' // Replace with your actual API key
 
@@ -134,6 +137,9 @@ export default function MapPage() {
   const [places, setPlaces] = React.useState<Place[]>([])
   const [nearbyONGs, setNearbyONGs] = React.useState<NearbyONG[]>([])
   const [isLoadingONGs, setIsLoadingONGs] = React.useState(false)
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const mapRef = React.useRef<MapView>(null)
+  const NEARBY_RADIUS_KM = 25
 
   async function geocodeAddress(address: string): Promise<{ latitude: number; longitude: number } | null> {
     try {
@@ -178,7 +184,7 @@ export default function MapPage() {
     if (status === 'granted') {
       Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Highest
-      }).then(data => {
+      }).then((data: Location.LocationObject) => {
         setLocation(data)
         if (nearbyONGs.length > 0) {
           calculateDistances(data.coords.latitude, data.coords.longitude)
@@ -190,13 +196,13 @@ export default function MapPage() {
   }
 
   function calculateDistances(userLat: number, userLon: number) {
-    const ongsWithDistance = nearbyONGs.map(ong => {
+    const ongsWithDistance = nearbyONGs.map((ong: NearbyONG) => {
       const distance = getDistanceFromLatLonInKm(
         userLat, userLon, 
         ong.latitude, ong.longitude
       )
       return { ...ong, distance }
-    }).sort((a, b) => (a.distance || 0) - (b.distance || 0))
+    }).sort((a: NearbyONG, b: NearbyONG) => (a.distance || 0) - (b.distance || 0))
     
     setNearbyONGs(ongsWithDistance)
   }
@@ -246,12 +252,32 @@ export default function MapPage() {
   }
 
   function handleONGPress(ong: NearbyONG) {
-    navigation.navigate('ongDetails', { ong })
+    // Anima a câmera para a ONG selecionada
+    if (mapRef.current) {
+      mapRef.current.animateToRegion({
+        latitude: ong.latitude,
+        longitude: ong.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      }, 1000)
+    }
+    
+    // Navega para a página de detalhes da ONG
+    navigation.navigate('ONGDetails', { ong })
+  }
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <MapView
+        ref={mapRef}
         style={styles.map}
         showsUserLocation={true}
         zoomControlEnabled={true}
@@ -264,8 +290,9 @@ export default function MapPage() {
         }}
         onLongPress={goToCreatePlace}
       >
+        
         {/* User's saved places */}
-        {places.map((place) => (
+        {places.map((place: Place) => (
           <Marker
             key={place.id}
             coordinate={{
@@ -277,8 +304,10 @@ export default function MapPage() {
           />
         ))}
 
-        {/* Nearby ONGs */}
-        {nearbyONGs.map((ong) => (
+        {/* Nearby ONGs (filtradas por raio) */}
+        {nearbyONGs
+          .filter((ong: NearbyONG) => typeof ong.distance === 'number' ? (ong.distance as number) <= NEARBY_RADIUS_KM : true)
+          .map((ong: NearbyONG) => (
           <Marker
             key={ong.id}
             coordinate={{
@@ -286,24 +315,46 @@ export default function MapPage() {
               longitude: ong.longitude
             }}
             title={ong.name}
-            description={ong.distance ? `${ong.distance.toFixed(1)} km de distância` : 'Toque para mais informações'}
+            description={ong.distance ? `${ong.distance.toFixed(1)} km de distância` : undefined}
             pinColor="red"
             onPress={() => handleONGPress(ong)}
           />
         ))}
       </MapView>
-    </View>
+
+      {/* Botão do Menu sobreposto ao mapa */}
+      <View style={styles.menuButtonContainer}>
+        <MenuButton 
+          onPress={toggleMenu} 
+          isOpen={isMenuOpen}
+        />
+      </View>
+
+      {/* Menu Lateral */}
+      <SideMenu 
+        navigation={navigation}
+        visible={isMenuOpen}
+        onClose={closeMenu}
+      />
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: Colors.background,
   },
   map: {
-    width: '100%',
-    height: '100%',
-  }
+    flex: 1,
+  },
+  menuButtonContainer: {
+    position: 'absolute',
+    top: Spacing.md,
+    right: Spacing.md,
+    zIndex: 1000,
+    backgroundColor: Colors.surface,
+    borderRadius: BorderRadius.round,
+    ...Shadows.medium,
+  },
 })
