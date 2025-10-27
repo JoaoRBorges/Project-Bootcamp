@@ -134,7 +134,7 @@ const BRAZIL_ONGS_BASE = [
   }
 ]
 
-const MAPBOX_API_KEY = 'pk.eyJ1IjoiaW1wYWN0YXZpbmkiLCJhIjoiY21naXRoM2E4MGN1YjJrb2toeXBzd2huYSJ9.HjAEpTV9B7kmqm2S0urBAw'
+// const MAPBOX_API_KEY = 'pk.eyJ1IjoiaW1wYWN0YXZpbmkiLCJhIjoiY21naXRoM2E4MGN1YjJrb2toeXBzd2huYSJ9.HjAEpTV9B7kmqm2S0urBAw'
 
 export default function ONGsListPage() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null)

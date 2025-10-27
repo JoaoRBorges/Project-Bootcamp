@@ -9,7 +9,7 @@ import SideMenu from '../components/SideMenu'
 import MenuButton from '../components/MenuButton'
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '../styles/DesignSystem'
 
-const MAPBOX_API_KEY = 'pk.eyJ1IjoiaW1wYWN0YXZpbmkiLCJhIjoiY21naXRoM2E4MGN1YjJrb2toeXBzd2huYSJ9.HjAEpTV9B7kmqm2S0urBAw' // Replace with your actual API key
+// const MAPBOX_API_KEY = 'pk.eyJ1IjoiaW1wYWN0YXZpbmkiLCJhIjoiY21naXRoM2E4MGN1YjJrb2toeXBzd2huYSJ9.HjAEpTV9B7kmqm2S0urBAw' // Replace with your actual API key
 
 interface NearbyONG {
   id: string
@@ -141,39 +141,39 @@ export default function MapPage() {
   const mapRef = React.useRef<MapView>(null)
   const NEARBY_RADIUS_KM = 25
 
-  async function geocodeAddress(address: string): Promise<{ latitude: number; longitude: number } | null> {
-    try {
-      const encodedAddress = encodeURIComponent(address)
-      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=${MAPBOX_API_KEY}&country=BR&limit=1`
+  // async function geocodeAddress(address: string): Promise<{ latitude: number; longitude: number } | null> {
+  //   try {
+  //     const encodedAddress = encodeURIComponent(address)
+  //     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodedAddress}.json?access_token=${MAPBOX_API_KEY}&country=BR&limit=1`
       
-      const response = await fetch(url)
-      const data = await response.json()
+  //     const response = await fetch(url)
+  //     const data = await response.json()
       
-      if (data.features && data.features.length > 0) {
-        const [longitude, latitude] = data.features[0].center
-        return { latitude, longitude }
-      }
-      return null
-    } catch (error) {
-      console.error(`Error geocoding address: ${address}`, error)
-      return null
-    }
-  }
+  //     if (data.features && data.features.length > 0) {
+  //       const [longitude, latitude] = data.features[0].center
+  //       return { latitude, longitude }
+  //     }
+  //     return null
+  //   } catch (error) {
+  //     console.error(`Error geocoding address: ${address}`, error)
+  //     return null
+  //   }
+  // }
 
   async function loadONGsWithCoordinates() {
     setIsLoadingONGs(true)
     const ongsWithCoords: NearbyONG[] = []
     
-    for (const ong of BRAZIL_ONGS_BASE) {
-      const coords = await geocodeAddress(ong.address)
-      if (coords) {
-        ongsWithCoords.push({
-          ...ong,
-          latitude: coords.latitude,
-          longitude: coords.longitude
-        })
-      }
-    }
+    // for (const ong of BRAZIL_ONGS_BASE) {
+    //   const coords = await geocodeAddress(ong.address)
+    //   if (coords) {
+    //     ongsWithCoords.push({
+    //       ...ong,
+    //       latitude: coords.latitude,
+    //       longitude: coords.longitude
+    //     })
+    //   }
+    // }
     
     setNearbyONGs(ongsWithCoords)
     setIsLoadingONGs(false)
