@@ -123,12 +123,12 @@ export default function ChatPage() {
         
         return `
 [${relevance}]
-🏢 Nome: ${o.name}
-📍 Endereço: ${o.address}
-📞 Telefone: ${o.phone}
-📧 Email: ${o.email}
-ℹ️ Descrição: ${o.description}
-🎯 Score de Relevância: ${o.score}
+Nome: ${o.name}
+Endereço: ${o.address}
+Telefone: ${o.phone}
+Email: ${o.email}
+ℹDescrição: ${o.description}
+Score de Relevância: ${o.score}
         `
       })
       .join("\n" + "─".repeat(50) + "\n")
