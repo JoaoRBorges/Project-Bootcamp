@@ -33,6 +33,9 @@
           "locationAlwaysAndWhenInUsePermission": "Permitir ao App $(PRODUCT_NAME) usar sua localização."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "groqApiKey": "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"
+    }
   }
 }

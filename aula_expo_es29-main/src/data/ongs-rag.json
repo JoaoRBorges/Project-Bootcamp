@@ -1,0 +1,122 @@
+[
+  {
+    "id": "ong-1",
+    "name": "Instituto Ayrton Senna",
+    "address": "Av. Paulista, 1106 - Bela Vista, São Paulo - SP, Brazil",
+    "phone": "+551131688000",
+    "email": "contato@senna.org.br",
+    "description": "ONG brasileira dedicada à melhoria da educação pública, atuando na formação de crianças e jovens em todo o Brasil."
+  },
+  {
+    "id": "ong-2",
+    "name": "Fundação Abrinq",
+    "address": "Av. Santo Amaro, 1386 - Vila Nova Conceição, São Paulo - SP, Brazil",
+    "phone": "+551138488999",
+    "email": "fundabrinq@fundabrinq.org.br",
+    "description": "Organização dedicada à defesa dos direitos das crianças e adolescentes no Brasil."
+  },
+  {
+    "id": "ong-3",
+    "name": "GRAACC",
+    "address": "R. Botucatu, 743 - Vila Clementino, São Paulo - SP, Brazil",
+    "phone": "+551150808400",
+    "email": "graacc@graacc.org.br",
+    "description": "ONG especializada na prevenção e tratamento do câncer infantil, referência nacional em oncologia pediátrica."
+  },
+  {
+    "id": "ong-4",
+    "name": "Ação da Cidadania",
+    "address": "Rua da Glória, 292 - Liberdade, São Paulo - SP, Brazil",
+    "phone": "+551131071999",
+    "email": "acaodacidadania@acaodacidadania.org.br",
+    "description": "Movimento social focado no combate à fome, pobreza e desigualdade."
+  },
+  {
+    "id": "ong-5",
+    "name": "Greenpeace Brasil",
+    "address": "Rua Alvaro Alvim, 21 - Centro, Rio de Janeiro - RJ, Brazil",
+    "phone": "+552135159600",
+    "email": "supporter.br@greenpeace.org",
+    "description": "ONG ambientalista internacional que atua na proteção da natureza e promoção de práticas sustentáveis."
+  },
+  {
+    "id": "ong-6",
+    "name": "SOS Mata Atlântica",
+    "address": "Av. Nossa Senhora de Copacabana, 1010 - Copacabana, Rio de Janeiro - RJ, Brazil",
+    "phone": "+552138240000",
+    "email": "atendimento@sosma.org.br",
+    "description": "ONG dedicada à defesa da Mata Atlântica, realizando pesquisas, campanhas e ações de conservação ambiental."
+  },
+  {
+    "id": "ong-7",
+    "name": "Médicos Sem Fronteiras",
+    "address": "Rua Dias Ferreira, 190 - Leblon, Rio de Janeiro - RJ, Brazil",
+    "phone": "+552121413110",
+    "email": "msf@rio.msf.org",
+    "description": "Organização humanitária internacional que oferece ajuda médica em regiões de conflitos, epidemias e crises humanitárias."
+  },
+  {
+    "id": "ong-8",
+    "name": "WWF Brasil",
+    "address": "SHIS EQ QL 6/8 Conjunto E - Lago Sul, Brasília - DF, Brazil",
+    "phone": "+556134643727",
+    "email": "wwfbrasil@wwf.org.br",
+    "description": "Organização ambiental dedicada à preservação da fauna, flora e biomas brasileiros."
+  },
+  {
+    "id": "ong-9",
+    "name": "ISPN",
+    "address": "SCLN 113 Bloco C - Asa Norte, Brasília - DF, Brazil",
+    "phone": "+556133272043",
+    "email": "ispn@ispn.org.br",
+    "description": "ONG que trabalha pelo desenvolvimento sustentável em comunidades tradicionais e áreas rurais."
+  },
+  {
+    "id": "ong-10",
+    "name": "Pastoral da Criança",
+    "address": "Av. Afonso Pena, 867 - Centro, Belo Horizonte - MG, Brazil",
+    "phone": "+553132481800",
+    "email": "contato@pastoraldacrianca.org.br",
+    "description": "Organização de ação social ligada à CNBB, com foco em saúde, nutrição e educação infantil."
+  },
+  {
+    "id": "ong-11",
+    "name": "IGEE",
+    "address": "Av. Alberto Bins, 665 - Centro Histórico, Porto Alegre - RS, Brazil",
+    "phone": "+555130614600",
+    "email": "igee@igee.org.br",
+    "description": "Instituto dedicado à educação e ao desenvolvimento comunitário."
+  },
+  {
+    "id": "ong-12",
+    "name": "ICEP",
+    "address": "Rua das Flores, 26 - Centro, Salvador - BA, Brazil",
+    "phone": "+557135080000",
+    "email": "contato@icep.org.br",
+    "description": "Instituto voltado para projetos de inovação educacional e desenvolvimento social na Bahia."
+  },
+  {
+    "id": "ong-13",
+    "name": "Centro Josué de Castro",
+    "address": "Av. Rio Branco, 1492 - Recife Antigo, Recife - PE, Brazil",
+    "phone": "+558132242700",
+    "email": "cjc@josuedecastro.org.br",
+    "description": "ONG voltada para o combate à fome, insegurança alimentar e desigualdade social."
+  },
+  {
+    "id": "ong-14",
+    "name": "Instituto das Águas",
+    "address": "Rua XV de Novembro, 1299 - Centro, Curitiba - PR, Brazil",
+    "phone": "+554132643900",
+    "email": "contato@institutodasaguas.org.br",
+    "description": "Instituto dedicado à preservação da água, saneamento e recursos hídricos."
+  },
+  {
+    "id": "ong-15",
+    "name": "Instituto da Infância",
+    "address": "Av. Santos Dumont, 2828 - Aldeota, Fortaleza - CE, Brazil",
+    "phone": "+558531053900",
+    "email": "ifan@ifan.org.br",
+    "description": "ONG focada na promoção da infância, apoio a famílias e desenvolvimento social."
+  }
+]
