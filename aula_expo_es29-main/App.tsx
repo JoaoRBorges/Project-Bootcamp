@@ -15,6 +15,7 @@ import SettingsPage from './src/pages/Settings'
 import { AuthProvider } from './src/contexts/AuthContext'
 import AuthContext from './src/contexts/AuthContext'
 
+//teste
 const Stack = createNativeStackNavigator()
 
 function MainStack() {
