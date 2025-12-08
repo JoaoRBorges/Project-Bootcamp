@@ -14,7 +14,7 @@ import SupportPage from './src/pages/Support'
 import SettingsPage from './src/pages/Settings'
 import { AuthProvider } from './src/contexts/AuthContext'
 import AuthContext from './src/contexts/AuthContext'
-
+import ChatPage from './src/pages/Chat'
 const Stack = createNativeStackNavigator()
 
 function MainStack() {
@@ -28,6 +28,7 @@ function MainStack() {
             <Stack.Screen name="ONGDetails" component={ONGDetailsPage} options={{ title: 'Detalhes da ONG' }} />
             <Stack.Screen name="Support" component={SupportPage} options={{ title: 'Suporte' }} />
             <Stack.Screen name="Settings" component={SettingsPage} options={{ title: 'Configurações' }} />
+            <Stack.Screen name="Chat" component={ChatPage} options={{ title: "Assistente IA" }} />
         </Stack.Navigator>
     )
 }
