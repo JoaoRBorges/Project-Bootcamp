@@ -7,6 +7,7 @@ import ListPage from './src/pages/List'
 import PlacePage from './src/pages/Place'
 import LoginPage from './src/pages/Auth/Login'
 import RegisterPage from './src/pages/Auth/Register'
+import RegisterOngPage from './src/pages/Auth/RegisterOng'
 import ProfilePage from './src/pages/Profile'
 import ONGsListPage from './src/pages/ONGsList'
 import ONGDetailsPage from './src/pages/Ong'
@@ -38,6 +39,7 @@ function AuthStack() {
         <Stack.Navigator>
             <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
             <Stack.Screen name="Register" component={RegisterPage} options={{ headerShown: false }} />
+            <Stack.Screen name="RegisterOng" component={RegisterOngPage} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

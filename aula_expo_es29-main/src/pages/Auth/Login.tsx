@@ -166,15 +166,27 @@ export default function LoginPage() {
 						</View>
 
 						{/* Links */}
-						<TouchableOpacity
-							onPress={() => navigation.navigate("Register" as never)}
-						>
-							<Text style={styles.link}>Criar uma conta</Text>
-						</TouchableOpacity>
-
-						{/* <TouchableOpacity>
-							<Text style={styles.link}>Entrada sem registro</Text>
-						</TouchableOpacity> */}
+						<View style={styles.signupWrapper}>
+							<Text style={styles.signupTitle}>Ainda não tem acesso?</Text>
+							<TouchableOpacity
+								style={[styles.signupCard, styles.signupCardPrimary]}
+								onPress={() => navigation.navigate("Register" as never)}
+								activeOpacity={0.85}
+							>
+								<Text style={styles.signupCardTitle}>Criar conta</Text>
+								<Text style={styles.signupCardSubtitle}>Pessoa física</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								style={[styles.signupCard, styles.signupCardSecondary]}
+								onPress={() => navigation.navigate("RegisterOng" as never)}
+								activeOpacity={0.85}
+							>
+								<Text style={styles.signupCardTitle}>Cadastrar ONG</Text>
+								<Text style={styles.signupCardSubtitle}>
+									Divulgue dados oficiais para receber apoio
+								</Text>
+							</TouchableOpacity>
+						</View>
 					</View>
 				</KeyboardAvoidingView>
 			</ImageBackground>
@@ -291,5 +303,47 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		fontSize: 14,
 		fontWeight: "600",
+	},
+	signupWrapper: {
+		marginTop: 8,
+	},
+	signupTitle: {
+		fontSize: 14,
+		fontWeight: "600",
+		color: "#374151",
+		marginBottom: 12,
+		textAlign: "center",
+	},
+	signupCard: {
+		padding: 18,
+		borderRadius: 16,
+		borderWidth: 1,
+		borderColor: "#e5e7eb",
+		backgroundColor: "#f9fafb",
+		marginBottom: 12,
+		elevation: 2,
+		shadowColor: "#00000033",
+		shadowOffset: { width: 0, height: 4 },
+		shadowOpacity: 0.15,
+		shadowRadius: 8,
+	},
+	signupCardPrimary: {
+		borderColor: "#2563eb",
+		backgroundColor: "#eff6ff",
+	},
+	signupCardSecondary: {
+		borderColor: "#10b981",
+		backgroundColor: "#ecfdf5",
+	},
+	signupCardTitle: {
+		fontSize: 16,
+		fontWeight: "700",
+		color: "#111827",
+	},
+	signupCardSubtitle: {
+		fontSize: 13,
+		color: "#4b5563",
+		marginTop: 4,
+		lineHeight: 18,
 	},
 })

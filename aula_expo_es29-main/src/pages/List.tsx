@@ -5,9 +5,7 @@ import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation
 import * as placeRepo from '../servicos/place.repo'
 import ListItem from '../components/ListItem'
 import { Place } from '../models'
-import AuthContext from '../contexts/AuthContext'
-
-type User = { name: string; email: string }
+import AuthContext, { User } from '../contexts/AuthContext'
 
 export default function ListPage() {
 

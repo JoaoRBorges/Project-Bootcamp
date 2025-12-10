@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { 
   View, 
   Text, 
@@ -8,10 +8,11 @@ import {
   Animated, 
   Dimensions,
   StatusBar,
-  SafeAreaView
 } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '../styles/DesignSystem'
+import AuthContext from '../contexts/AuthContext'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const { width, height } = Dimensions.get('window')
 
@@ -24,6 +25,8 @@ interface SideMenuProps {
 export default function SideMenu({ navigation, visible, onClose }: SideMenuProps) {
   const [slideAnim] = useState(new Animated.Value(-width))
   const [fadeAnim] = useState(new Animated.Value(0))
+  const { user, signOut } = useContext(AuthContext)
+  const isOng = user?.role === 'ong'
 
   useEffect(() => {
     if (visible) {
@@ -60,7 +63,12 @@ export default function SideMenu({ navigation, visible, onClose }: SideMenuProps
     onClose()
   }
 
-  const menuItems = [
+  const handleLogout = () => {
+    onClose()
+    signOut()
+  }
+
+  const baseMenuItems = [
     { 
       id: 'Map', 
       title: 'Mapa', 
@@ -104,6 +112,9 @@ export default function SideMenu({ navigation, visible, onClose }: SideMenuProps
       description: 'Preferências'
     },
   ]
+  const menuItems = isOng
+    ? baseMenuItems.filter(item => ['Profile', 'Support', 'Settings'].includes(item.id))
+    : baseMenuItems
 
   return (
     <Modal
@@ -135,7 +146,7 @@ export default function SideMenu({ navigation, visible, onClose }: SideMenuProps
             { transform: [{ translateX: slideAnim }] }
           ]}
         >
-          <SafeAreaView style={styles.menuContent}>
+          <SafeAreaView style={styles.menuContent} edges={['top', 'bottom']}>
             {/* Header */}
             <View style={styles.header}>
               <View style={styles.avatarContainer}>
@@ -143,8 +154,8 @@ export default function SideMenu({ navigation, visible, onClose }: SideMenuProps
                   <Ionicons name="person-circle" size={60} color={Colors.primary} />
                 </View>
               </View>
-              <Text style={styles.userName}>Usuário</Text>
-              <Text style={styles.userEmail}>usuario@email.com</Text>
+              <Text style={styles.userName}>{user?.name ?? 'Usuário'}</Text>
+              <Text style={styles.userEmail}>{user?.email ?? 'usuario@email.com'}</Text>
             </View>
 
             {/* Menu Items */}
@@ -179,7 +190,7 @@ export default function SideMenu({ navigation, visible, onClose }: SideMenuProps
                   <Ionicons name="information-circle-outline" size={16} color={Colors.textTertiary} />
                   <Text style={styles.versionText}>Versão 1.0.0</Text>
                 </View>
-                <TouchableOpacity style={styles.logoutButton}>
+                <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
                   <Ionicons name="log-out-outline" size={16} color={Colors.error} />
                   <Text style={styles.logoutText}>Sair</Text>
                 </TouchableOpacity>
@@ -241,6 +252,7 @@ const styles = StyleSheet.create({
   menuSection: {
     flex: 1,
     paddingVertical: Spacing.md,
+    paddingBottom: Spacing.xl,
   },
   menuItem: {
     flexDirection: 'row',
