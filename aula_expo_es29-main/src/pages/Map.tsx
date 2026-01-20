@@ -8,6 +8,8 @@ import * as placeRepo from '../servicos/place.repo'
 import SideMenu from '../components/SideMenu'
 import MenuButton from '../components/MenuButton'
 import { Colors, Typography, Spacing, BorderRadius, Shadows } from '../styles/DesignSystem'
+import { TouchableOpacity } from 'react-native'
+import { FontAwesome5 } from '@expo/vector-icons'
 
 interface NearbyONG {
   id: string
@@ -334,6 +336,17 @@ export default function MapPage() {
         visible={isMenuOpen}
         onClose={closeMenu}
       />
+
+      {/* Botão flutuante para Chat */}
+      <View style={styles.chatButtonContainer}>
+        <TouchableOpacity
+          style={styles.chatButton}
+          onPress={() => navigation.navigate('Chat')}
+        >
+          <FontAwesome5 name="robot" size={26} color="#fff" />
+        </TouchableOpacity>
+      </View>
+
     </SafeAreaView>
   )
 }
@@ -355,4 +368,21 @@ const styles = StyleSheet.create({
     borderRadius: BorderRadius.round,
     ...Shadows.medium,
   },
+
+  hatButtonContainer: {
+    position: 'absolute',
+    top: Spacing.md + 60, // fica logo abaixo do botão de menu
+    right: Spacing.md,
+    zIndex: 1000,
+  },
+  chatButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: Colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...Shadows.medium,
+  },
+
 })
